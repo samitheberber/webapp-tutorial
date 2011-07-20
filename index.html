@@ -8,6 +8,7 @@
 
         <p>This tutorial shows how to create web application with sinatra. The tutorial expects that Git is in use.</p>
 
+
         <h2>Table of Content</h2>
 
         <ol>
@@ -21,7 +22,35 @@
             <li><a href="#heroku_deployment">Heroku deployment</a></li>
         </ol>
 
+
         <h2 id="ruby_rvm_bundler">Ruby, RVM and bundler</h2>
+
+        <p>In my course we are using Ruby 1.8.7, RVM and bundler. I try to tell the role of each tools in this chapter.</p>
+
+        <h3>Installing ruby for Windows</h3>
+
+        <p>Tools for Windows aren't so great as they are in Unix world, but you can manage with them. All you need is <a href="http://rubyinstaller.org/">RubyInstaller</a>. If you want use many versions of ruby, you can try <a href="https://github.com/vertiginous/pik">pik</a>.
+
+        <h3>Installing ruby for Unix (the RVM way)</h3>
+
+        <p><a href="https://rvm.beginrescueend.com/">RVM</a> (Ruby Version Manager) is one of the must-have tools in ruby world. It installs all ruby versions you want, manages gem sets and lots of more.</p>
+
+        <p>At first you need to open your terminal and paste this: <code>bash < <(curl -s https://rvm.beginrescueend.com/install/rvm)</code></p>
+
+        <p>I assume that you are using bash, so you can command <code>echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function' >> ~/.bash_profile</code> and now you have rvm running on next terminal session. To verify this, close current terminal session and open new. After that command <code>rvm -v</code> and you will see rvm version information, if all went fine.</p>
+
+        <p>When we have RVM, it is time to manage ruby versions. Lets install ruby 1.8.7: <code>rvm install 1.8.7</code> Now the latest patch ruby version 1.8.7 is compiling and installing. When this is done, you can use it with <code>rvm use 1.8.7</code>, but you don't want to command this every time you open new terminal, so lets make it default ruby with <code>rvm use 1.8.7 --default</code></p>
+
+        <p>Lets verify that we have RVM installed ruby. <code>gem env</code> the command output should specify paths so that they point under the .rvm-directory in your home.</p>
+
+        <h3>Installing bundler to manage your gems</h3>
+
+        <p>In Windows just <code>gem install bundler</code> (pik doesn't have gem sets).</p>
+
+        <p>In Unix you want to install bundler so that all your projects can access to it, so lets make it in global gemset. First make global gemset in use: <code>rvm gemset use global</code> (verify this with <code>gem env</code> so that all there should be only one line under GEM PATHs and is should end @global). Now install bundler with <code>gem install bundler</code> You can clear used gemset to default, but not necessary: <code>rvm gemset clear</code></p>
+
+        <p>This should be the last time you use <code>gem install <name of gem></code> If not so, you should re-think, what you are doing.</p>
+
 
         <h2 id="creating_new_sinatra_project">Creating new project with sinatra</h2>
 
