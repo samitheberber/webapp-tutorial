@@ -47,12 +47,56 @@
 
         <p>In Windows just <code>gem install bundler</code> (pik doesn't have gem sets).</p>
 
-        <p>In Unix you want to install bundler so that all your projects can access to it, so lets make it in global gemset. First make global gemset in use: <code>rvm gemset use global</code> (verify this with <code>gem env</code> so that all there should be only one line under GEM PATHs and is should end @global). Now install bundler with <code>gem install bundler</code> You can clear used gemset to default, but not necessary: <code>rvm gemset clear</code></p>
+        <p>In Unix you want to install bundler so that all your projects can access to it, so lets make it in global gemset. First make global gemset in use: <code>rvm gemset use global</code> (verify this with <code>gem env</code> so that all there should be only one line under GEM PATHS and is should end @global). Now install bundler with <code>gem install bundler</code> You can clear used gemset to default, but not necessary: <code>rvm gemset clear</code></p>
 
         <p>This should be the last time you use <code>gem install <name of gem></code> If not so, you should re-think, what you are doing.</p>
 
 
         <h2 id="creating_new_sinatra_project">Creating new project with sinatra</h2>
+
+        <p>Before this, I have created new repository in github and followed instruction from there. My stage is that I have empty README-file with initial commit.</p>
+
+        <h3>Setting up RVM for this project</h3>
+
+        <p>At first I want to add .rvmrc file with my project gemset. webapp-tutorial/.rvmrc looks like this: <code>rvm use 1.8.7@webapp-tutorial</code> (In windows, make just this and skip following. By doing this, you are kind to Unix users)</p>
+
+        <p>When I enter my webapp-tutorial directory, RVM asks me if I want to add currently found .rvmrc-file in trusted files and that's what I want to do (answer yes). Without any customizing, RVM should tell you to create used gemset, so lets create one: <code>rvm gemset create webapp-tutorial</code> Re-enter after this.</p>
+
+        <p>If everything went fine, <code>gem env</code> should show you two lines in GEM PATHS, one ending webapp-tutorial and another one ending global.</p>
+
+        <h3>Setting project bundler</h3>
+
+        <p>Just command: <code>bundle init</code> Now you should have Gemfile called file in your working directory.</p>
+
+        <p>You can always check if your gems are fine with <code>bundle check</code> It will tell what to do, if they aren't fine (mostly tells to install them). Now you should have Gemfile.lock, which contains information about your gems.</p>
+
+        <p>You can install gems with bundler by commanding <code>bundle install</code></p>
+
+        <h3>Lets install sinatra</h3>
+
+        <p>Just add <code>gem 'sinatra'</code> in your Gemfile and run <code>bundle install</code></p>
+
+        <h3>Create first sinatra application with hello world response</h3>
+
+        <p>Create my_sinatra_app.rb which constains following code:</p>
+        <pre>require 'rubygems'
+require 'sinatra'
+
+get '/' do
+  "Hello world"
+end</pre>
+
+        <p>For easy server use, you should have config.ru:</p>
+        <pre>require './my_sinatra_app'
+
+run Sinatra::Application</pre>
+
+        <p>Last think is to run your new born application: <code>rackup</code> and open your browser with url <a href="http://localhost:9292">http://localhost:9292</a> (9292 should be the default rack port, change it if rackup tells a different one)</p>
+
+
+        <p class="gommit">Now is good time for a commit!</p>
+
+
 
         <h2 id="handling_responses">Handling responses</h2>
 
