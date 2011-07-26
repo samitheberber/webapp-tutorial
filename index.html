@@ -14,6 +14,7 @@
         <ol>
             <li><a href="#ruby_rvm_bundler">Ruby, RVM and bundler</a></li>
             <li><a href="#creating_new_sinatra_project">Creating new project with sinatra</a></li>
+            <li><a href="#short_ruby_tutorial">Short ruby tutorial</a></li>
             <li><a href="#handling_responses">Handling responses</a></li>
             <li><a href="#creating_erbviews">Creating erb-views</a></li>
             <li><a href="#using_classes">Using classes</a></li>
@@ -96,6 +97,19 @@ run Sinatra::Application</pre>
 
         <p class="gommit">Now is good time for a commit!</p>
 
+
+        <h2 id="short_ruby_tutorial">Short ruby tutorial</h2>
+
+        <h3>Naming your methods</h3>
+
+        <p>In ruby you will face three kind of methods: <code>this_is_a_common_method()</code>, <code>do_i_ask_something?()</code> and <code>i_tell_you_to_do_this!()</code> First one is the same kind of method, you would use for example in Java. Second one asks something and only understads boolean answer, for example you want to know if use is admin, just call user.admin? and it will tell true or false. So if you have method, which returns boolean, add ? in the end of that method's name. The last one is a bang-method. It tries to do your request, but if something goes wrong, it will rage on you in the form of exception. Bang also affect its host. Here is an example about bang:</p>
+
+        <pre><code>my_own_list = [1,4,3,6]
+my_own_list.map{|x| x*2}    # => [2,8,6,12]
+my_own_list                 # => [1,4,3,6]
+
+my_own_list.map!{|x| x*2}   # => [2,8,6,12]
+my_own_list                 # => [2,8,6,12]</code></pre>
 
 
         <h2 id="handling_responses">Handling responses</h2>
