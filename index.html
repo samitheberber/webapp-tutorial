@@ -119,7 +119,71 @@ my_own_list                 # => [2,8,6,12]</code></pre>
 
         <h2 id="handling_responses">Handling responses</h2>
 
+        <h3>HTTP request methods</h3>
+
+        <p>You can use every <a href="http://en.wikipedia.org/wiki/Http#Request_methods">HTTP request method</a> with sinatra.</p>
+
+        <pre><code>get '/' do
+  'Used HTTP GET-method'
+end
+
+post '/' do
+  'Used HTTP POST-method'
+end
+
+put '/' do
+  'Used HTTP PUT-method'
+end
+
+delete '/' do
+  'Used HTTP DELETE-method'
+end
+
+options '/' do
+  'Used HTTP OPTIONS-method'
+end</code></pre>
+
+        <p>For example if you go http://my_application/foo/bar the request most likely will be handled in <code>get '/foo/bar'</code></p>
+
+        <h3>Named parameters</h3>
+
+        <p>You can pass named parameters in url without using GET paramater-format <code>?paramater1=value1&amp;parameter2=value2</code> ... In sinatra you can pass them in clean url format <code>/paramater1/value1/parameter2/value2</code> and it is quite easy to do:</p>
+
+        <pre><code>get '/paramater1/:value1/parameter2/:value2' do
+  "Parameters are #{params[:value1]} and #{params[:value2]}"
+end</code></pre>
+
         <h2 id="creating_erbviews">Creating erb-views</h2>
+
+        <p>It would be stupid to return everything in strings or print the text with <code>puts</code> so there are lots of template languages, which you can use. I'm going to tell about erb, because it is html embedded with ruby. All you have to do is <code>require 'erb'</code> and call <code>erb</code>-method with name of view, you want to render.</p>
+
+        <p><strong>example_application.rb</strong></p>
+        <pre><code>require 'rubygems'
+require 'sinatra'
+require 'erb'
+
+get '/' do
+  erb :index
+end</code></pre>
+
+        <p><strong>views/index.erb</strong></p>
+        <pre><code>&lt;p&gt;Hello world&lt;/p&gt;
+&lt;% 5.times do %&gt;
+  &lt;%= 'this is handled as ruby' %&gt;
+&lt;% end %&gt;</code></pre>
+
+        <p>By default erb uses layout-file so you don't have to write common parts for every file: <strong>views/layout.erb</strong></p>
+        <pre><code>&lt;html&gt;
+  &lt;head&gt;
+      &lt;title&gt;My example application&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;My page content:&lt;/h1&gt;
+    &lt;%= yield %&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <p>As you can see the ruby come is inside <code>&lt;% %&gt;</code> and if you want to print the output, just add =-mark after the <code>&lt;%</code>.
 
         <h2 id="using_classes">Using classes</h2>
 
