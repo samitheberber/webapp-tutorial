@@ -187,6 +187,21 @@ end</code></pre>
 
         <h2 id="using_classes">Using classes</h2>
 
+        <p>More common way to use sinatra is oop-way where you make subclass from Sinatra::Base class.</p>
+
+        <pre><code>require 'rubygems'
+require 'sinatra'
+
+class Tsoha < Sinatra::Base
+  get '/' do
+    'index'
+  end
+
+  get '/about' do
+    'about'
+  end
+end </code></pre>
+
         <h2 id="adding_database">Adding database</h2>
 
         <h2 id="sessions">Sessions</h2>
