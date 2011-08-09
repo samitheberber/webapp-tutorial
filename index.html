@@ -204,6 +204,54 @@ end </code></pre>
 
         <h2 id="adding_database">Adding database</h2>
 
+        <p>Just assume that we have SQLite database in our development machine. I introduce database usage through DataMapper, which is nice and quite simple gem for this.</p>
+
+        <p>Just add <code>gem 'data_mapper'</code> and <code>gem 'dm-sqlite-adapter'</code> in your Gemfile. In debian-based system like ubuntu, you need to install sqlite3-dev libraries: <code>sudo apt-get install libsqlite3-dev</code> And now we can start the actual database hacking!</p>
+
+        <p><strong>models.rb</strong></p>
+        <pre><code>require 'rubygems'
+require 'data_mapper'
+
+# Define that our database is in memory, use file in permanent solution :P
+DataMapper.setup(:default, 'sqlite::memory:')
+
+# Lets create users-table in our database
+class User
+  include DataMapper::Resource
+
+  # user has username, which is also primary key
+  property :username, String, :key => true
+
+  # user has password
+  property :password, String
+
+  # user has name
+  property :name, String
+
+  # user has many messages
+  has n, :messages
+end
+
+# Lets create messages-table in our database
+class Message
+  include DataMapper::Resource
+
+  # message has id
+  property :id, Serial # Serial is auto increment integer and also id is the default key
+
+  # message has body
+  property :body, Text
+
+  # message belongs to its author
+  belongs_to :user
+end
+
+# Now we have to finalize the data
+DataMapper.finalize
+
+# And at last we have to make changes to database (this first drops the tables and then creates create tables according models)
+DataMapper.auto_migrate!</code></pre>
+
         <h2 id="sessions">Sessions</h2>
 
         <h2 id="heroku_deployment">Heroku deployment</h2>
@@ -215,6 +263,7 @@ end </code></pre>
             <li><a href="http://sinatra-book.gittr.com/">Sinatra book</a></li>
             <li><a href="http://sinatra-book-contrib.com/">Sinatra book (extra parts)</a></li>
             <li><a href="http://apidock.com/">APIdock</a></li>
+            <li><a href="http://datamapper.org/">DataMapper</a></li>
         </ul>
 
 
