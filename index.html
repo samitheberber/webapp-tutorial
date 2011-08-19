@@ -41,6 +41,8 @@
 
         <p>I assume that you are using bash, so you can command <code>echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function' >> ~/.bash_profile</code> and now you have rvm running on next terminal session. To verify this, close current terminal session and open new. After that command <code>rvm -v</code> and you will see rvm version information, if all went fine.</p>
 
+        <p>After installing rvm, you should install system dependencies for ruby. You can look them from <code>rvm notes</code> When this was written correct package install line was: <code>/usr/bin/aptitude install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev</code>
+
         <p>When we have RVM, it is time to manage ruby versions. Lets install ruby 1.8.7: <code>rvm install 1.8.7</code> Now the latest patch ruby version 1.8.7 is compiling and installing. When this is done, you can use it with <code>rvm use 1.8.7</code>, but you don't want to command this every time you open new terminal, so lets make it default ruby with <code>rvm use 1.8.7 --default</code></p>
 
         <p>Lets verify that we have RVM installed ruby. <code>gem env</code> the command output should specify paths so that they point under the .rvm-directory in your home.</p>
@@ -254,7 +256,25 @@ DataMapper.auto_migrate!</code></pre>
 
         <h2 id="sessions">Sessions</h2>
 
+
         <h2 id="heroku_deployment">Heroku deployment</h2>
+
+        <p>In this tutorial we used ruby 1.8.7 and heroku had 1.9.1.</p>
+
+        <p>At first install heroku-gem. Do it by install it in global gemset like we did with bundler or in project development gems:</p>
+
+        <p><strong>Gemfile</strong></p>
+        <pre><code>group :development do
+  gem 'heroku'
+end</code></pre>
+
+        <p>You need an account in <a href="http://www.heroku.com">Heroku</a> and after that use heroku-command to log in: <code>heroku login</code> After you have logged in, add you public key in heroku: <code>heroku keys:add</code></p>
+
+        <p>Now we are ready to create new heroku application: <code>heroku create --stack bamboo-ree-1.8.7 samis-webapp</code> This command will create your app in location http://samis-webapp.heroku.com and put correct git origin in your .git/config.</p>
+
+        <p>Heroku is set up so just push your code in it: <code>heroku push</code> and look the result after heroku tells everything went fine.</p>o
+
+        <p>If you don't know what name you want to use, you can leave out the name and heroku will give you some heroku-style name (bloomfish-123 or something like that).</p>
 
 
         <h2 id="read_more">Read more</h2>
@@ -264,6 +284,7 @@ DataMapper.auto_migrate!</code></pre>
             <li><a href="http://sinatra-book-contrib.com/">Sinatra book (extra parts)</a></li>
             <li><a href="http://apidock.com/">APIdock</a></li>
             <li><a href="http://datamapper.org/">DataMapper</a></li>
+            <li><a href="http://www.heroku.com/">Heroku</a></li>
         </ul>
 
 
