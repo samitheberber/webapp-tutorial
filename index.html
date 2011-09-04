@@ -276,6 +276,18 @@ end</code></pre>
 
         <p>If you don't know what name you want to use, you can leave out the name and heroku will give you some heroku-style name (bloomfish-123 or something like that).</p>
 
+        <h3>Database in Heroku</h3>
+
+        <p>With free bamboo-stack, heroku uses shared postgresql database. In this tutorial I use datamapper, so you need datamapper postgresql adapter in your production gems.</p>
+
+        <pre><code>group :production do
+  gem 'dm-postgres-adapter'
+end</code></pre>
+
+        <p>Next thing is to make datamapper read configurations from environment variable, which is used in Heroku. Our SQLite database file is fallback, when environment variable isn't set, like mostly in development.</p>
+
+        <pre><code>DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/sqlite_database_file.db")</code></pre>
+
 
         <h2 id="read_more">Read more</h2>
 
